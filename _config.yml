@@ -47,12 +47,12 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
             - | # 网站小图标，可换成你自己的图片，改href中的部分即可
               <link
                 rel="apple-touch-icon-precomposed"
-                href="https://ftp.bmp.ovh/imgs/2021/04/66ef746678deff12.jpg"
+                href="https://i.w3tt.com/2021/04/25/qxyha.png"
               />
               <link
                 rel="shortcut
                 icon"
-                href="https://ftp.bmp.ovh/imgs/2021/04/66ef746678deff12.jpg"
+                href="https://i.w3tt.com/2021/04/25/qxyha.png"
               />
             - | # 来自lanyon的页面样式，不要改
               <link
@@ -151,7 +151,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 }
                 @media (min-aspect-ratio: 2400/1850) {
                   .wrap {
-                    background-image: url(https://ftp.bmp.ovh/imgs/2021/04/0b7d3167ab8aab6c.png);
+                    background-image: url(https://i.w3tt.com/2021/04/25/qxgRS.png);
                   }
                 }
                 .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
