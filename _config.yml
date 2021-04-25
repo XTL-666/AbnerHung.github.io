@@ -131,7 +131,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                       "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
                       "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
                       "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"
-                      "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",]
+                      "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json"]
                   });'
               ></script>
             - | # 百度爬虫推送，http站点使用 http://push.zhanzhang.baidu.com/push.js
