@@ -13,8 +13,8 @@ description: | # 头像背后的信息（html格式），<br/>代表换行
   border="0"
   marginwidth="0"
   marginheight="0"
-  width=330
-  height=86 
+  width=100%
+  height=52
   src="https://music.163.com/outchain/player?type=2&id=1818616542&auto=0&height=66">
   </iframe>
 url: https://AbnerHung.github.io # 你的域名，例如 https://wu-kan.github.io
