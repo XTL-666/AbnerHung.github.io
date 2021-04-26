@@ -120,7 +120,6 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                       }]
                     },
                     "model": [
-                      "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/sagiri/sagiri.model.json",
                       "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/tororo/tororo.model.json",
                       "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
                       "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
