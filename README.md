@@ -44,7 +44,7 @@
 
 - **Markdown**, Familiar
 - **$\LaTeX$**, Familiar&Learning
-- **Linux**, Familiar&Learning
+- **Linux**, Familiar
 - **Git**, Familiar
 - **VSCode**, Familiar
 - **Pycharm**, Familiar
