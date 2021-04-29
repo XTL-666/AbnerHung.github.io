@@ -8,7 +8,7 @@
 ## Contact
 
 - Address: **Northeastern University - 143 Taishan Rd.- Qinhuangdao, China**
-- Site: **<https://AbnerHung.github,io>**
+- Site: **<https://AbnerHung.github.io>**
 
 <!-- .slide vertical=true -->
 
