@@ -1,0 +1,468 @@
+# JZ1 二维数组中的查找
+
+## 描述
+
+在一个二维数组array中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+
+[
+
+[1,2,8,9],
+[2,4,9,12],
+[4,7,10,13],
+[6,8,11,15]
+
+]
+
+给定 `target = 7`，返回 `true`。
+
+给定 `target = 3`，返回 `false`。
+
+`0 <= array.length <= 500`
+`0 <= array[0].length <= 500`
+
+
+
+你能给出时间复杂度为 ![img](https://www.nowcoder.com/equation?tex=O(n%2Bm)%5C) 的解法吗？（n,m为矩阵的长和宽)
+
+## 示例1
+
+输入：
+
+```
+7,[[1,2,8,9],[2,4,9,12],[4,7,10,13],[6,8,11,15]]
+```
+
+返回值：
+
+```
+true
+```
+
+说明：
+
+```
+存在7，返回true  
+```
+
+## 示例2
+
+输入：
+
+```
+3,[[1,2,8,9],[2,4,9,12],[4,7,10,13],[6,8,11,15]]
+```
+
+返回值：
+
+```
+false
+```
+
+说明：
+
+```
+不存在3，返回false 
+```
+
+
+
+## Code
+
+思路：从左下角或右上角开始遍历，一次跳过一行或一列：
+
+```java
+public class Solution {
+    public boolean Find(int target, int [][] array) {
+        int row = array.length;
+        int col = array[0].length;
+        for(int i = row-1,j = 0;i>=0&&j<col;)
+        {
+            if(array[i][j]==target)
+            {
+                return true;
+            }
+            else if(array[i][j]>target)
+            {
+                i--;
+            }
+            else
+            {
+                j++;
+            }
+        }
+        return false;
+    }
+}
+```
+
+
+
+
+
+# JZ2 替换空格
+
+## 描述
+
+请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+
+给定的字符串长度不超过100。保证字符串中的字符为大写英文字母、小写英文字母和空格中的一种。
+
+## 示例1
+
+输入：
+
+```
+"We Are Happy"
+```
+
+返回值：
+
+```
+"We%20Are%20Happy"
+```
+
+## Code
+
+思路1：调`String.replaceAll`方法
+
+```java
+import java.util.*;
+ 
+public class Solution {
+    public String replaceSpace (String s) {
+        // write code here
+        if(s==null||"".equals(s))
+        {
+            return s;
+        }
+        return s.replaceAll(" ","%20");
+    }
+}
+```
+
+运行时间 17ms 占用内存9816KB
+
+思路2：申请一个新串，遇到空格加”%20“，否则加该字符
+
+```java
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param s string字符串 
+     * @return string字符串
+     */
+    public String replaceSpace (String s) {
+        // write code here
+        if(s==null||"".equals(s))
+        {
+            return s;
+        }
+        
+        String a="";
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)==' ')
+            {
+                a+="%20";
+            }
+            else
+            {
+                a+=s.charAt(i);
+            }
+        }
+        
+        return a;
+    }
+}
+```
+
+运行时间 14ms 占用内存 9816KB
+
+
+
+# JZ3 从尾到头打印链表
+
+## 描述
+
+输入一个链表的头节点，按链表从尾到头的顺序返回每个节点的值（用数组返回）。
+
+如输入{1,2,3}的链表如下图:
+
+![img](https://uploadfiles.nowcoder.com/images/20210717/557336_1626506480516/103D87B58E565E87DEFA9DD0B822C55F)
+
+返回一个数组为[3,2,1]
+
+0 <= 链表长度 <= 10000
+
+## 示例1
+
+输入：
+
+```
+{1,2,3}
+```
+
+返回值：
+
+```
+[3,2,1]
+```
+
+## Code
+
+思路1：就直接实现反转链表
+
+```java
+/**
+*    public class ListNode {
+*        int val;
+*        ListNode next = null;
+*
+*        ListNode(int val) {
+*            this.val = val;
+*        }
+*    }
+*
+*/
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ListNode head=listNode;
+        ListNode temp=null;
+        ListNode pre=null;
+        while(head!=null)
+        {
+            temp=head.next;
+            head.next=pre;
+            pre=head;
+            head=temp;
+        }
+        ArrayList<Integer> res=new ArrayList<Integer>();;
+        while(pre!=null)
+        {
+            res.add(pre.val);
+            pre=pre.next;
+        }
+        return res;
+    }
+}
+```
+
+思路2：数据存入list，反转list
+
+思路3：利用List的add方法，每次在0位置插入实现链表反转
+
+```java
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> res=new ArrayList<Integer>();;
+        while(listNode!=null)
+        {
+            res.add(0,listNode.val);
+            listNode=listNode.next;
+        }
+        return res;
+    }
+}
+```
+
+
+
+# JZ4 重建二叉树
+
+## 描述
+
+给定某二叉树的前序遍历和中序遍历，请重建出该二叉树并返回它的头结点。
+
+例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建出如下图所示。
+
+![img](https://uploadfiles.nowcoder.com/images/20210717/557336_1626504921458/776B0E5E0FAD11A6F15004B29DA5E628)
+
+提示:
+
+1.0 <= pre.length <= 2000
+
+2.vin.length == pre.length
+
+3.-10000 <= pre[i], vin[i] <= 10000
+
+4.pre 和 vin 均无重复元素
+
+5.vin出现的元素均出现在 pre里
+
+6.只需要返回根结点，系统会自动输出整颗树做答案对比
+
+## 示例1
+
+输入：
+
+```
+[1,2,4,7,3,5,6,8],[4,7,2,1,5,3,8,6]
+```
+
+返回值：
+
+```
+{1,2,3,4,#,5,6,#,7,#,#,8}
+```
+
+说明：
+
+```
+返回根节点，系统会输出整颗二叉树对比结果      
+```
+
+## 示例2
+
+输入：
+
+```
+[1],[1]
+```
+
+返回值：
+
+```
+{1}
+```
+
+## 示例3
+
+输入：
+
+```
+[1,2,3,4,5,6,7],[3,2,4,1,6,5,7]
+```
+
+返回值：
+
+```
+{1,2,5,3,4,6,7}
+```
+
+
+
+## Code
+
+思路：先序遍历——根-左-右；中序遍历——左-根-右
+
+使用递归，先序序列的第一个值为根节点，遍历中序序列，找到根节点位置，根节点左右为左右子树的序列，左右子树分别调用重构方法，递归。
+
+```java
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] vin) {
+        //递归调用重构方法得到root节点，初始遍历整个前序和中序序列即0~len-1
+        TreeNode root = reConstructBinaryTree(pre,vin,0,pre.length-1, 0, vin.length-1);
+        return root;
+    }
+    
+    //重载，传入遍历前序、中序序列的起止位置，相当于每次递归调用遍历前序、中序序列的子序列以重建上一根节点的子树
+    public TreeNode reConstructBinaryTree(int [] pre,int [] vin, int startPre,  int endPre, int startVin, int endVin) {
+        //如果已经遍历完前序或中序序列，返回空
+        if(startPre>endPre||startVin>endVin){
+            return null;
+        }
+        //本次调用的根节点（子树的根节点）因为先序遍历是根-左-右的顺序，所以pre[startPre]为根节点
+        TreeNode root = new TreeNode(pre[startPre]);
+        //遍历中序序列，找到根节点在中序序列中的位置
+        for(int i=startVin;i<=endVin;i++){
+            if(vin[i]==pre[startPre]){
+                //左子树的前序序列设置为（startPre+1)~(startPre+(i-startVin））即startPre加上一个根节点位置-startVin的偏移量。
+/*如[1,2,3,4,5,6,7],[3,2,4,1,6,5,7]，第一次，根节点为1，startPre和startVin为0，找到根节点1在中序序列中的位置3，即左子树的中序序列为[3,2,4]，由（startVin~i-1）即0~3的元素构成。左子树的前序序列应为[2,3,4]即（startPre+1）~（startPre+左子树元素个数），即i-startVin*/
+                root.left = reConstructBinaryTree(pre, vin, startPre+1, startPre-startVin+i, startVin, i-1);
+                //除开左子树的序列，剩余的应为右子树序列
+                root.right = reConstructBinaryTree(pre, vin, startPre-startVin+i+1, endPre, i+1, endVin);
+            }
+        }
+        return root;
+    }
+}
+```
+
+
+
+# JZ5 两个栈实现一个队列
+
+## 描述
+
+用两个栈来实现一个队列，分别完成在队列尾部插入整数(push)和在队列头部删除整数(pop)的功能。 队列中的元素为int类型。保证操作合法，即保证pop操作时队列内已有元素。
+
+示例:
+
+输入:
+
+["PSH1","PSH2","POP","POP"]
+
+返回:
+
+1,2
+
+解析:
+
+"PSH1":代表将1插入队列尾部
+
+"PSH2":代表将2插入队列尾部
+
+"POP“:代表删除一个元素，先进先出=>返回1
+
+"POP“:代表删除一个元素，先进先出=>返回2
+
+## 示例1
+
+输入：
+
+```
+["PSH1","PSH2","POP","POP"]
+```
+
+返回值：
+
+```
+1,2
+```
+
+
+
+## Code
+
+```java
+import java.util.Stack;
+
+public class Solution {
+    Stack<Integer> stack1 = new Stack<Integer>();
+    Stack<Integer> stack2 = new Stack<Integer>();
+    
+    public void push(int node) {
+        stack1.push(node);
+    }
+    
+    public int pop() {
+        if(!stack2.empty())
+        {
+            return stack2.pop();
+        }
+        while(!stack1.empty())
+        {
+            stack2.push(stack1.pop());
+        }
+        return stack2.pop();
+    
+    }
+}
+```
+
