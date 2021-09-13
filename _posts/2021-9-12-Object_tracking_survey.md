@@ -1,6 +1,6 @@
 ---
 redirect_from: /_posts/2021-9-12-Object_tracking_survey.md/
-title: JZoffer
+title: Object_tracking_survey
 tags:
   - Python
   - AI
