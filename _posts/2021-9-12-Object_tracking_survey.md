@@ -1,3 +1,10 @@
+---
+redirect_from: /_posts/2021-9-12-Object_tracking_survey.md/
+title: JZoffer
+tags:
+  - AI
+  - ComputerVision
+---
 # 目标追踪
 
 ## 1. 介绍
