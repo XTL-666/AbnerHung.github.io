@@ -1,0 +1,435 @@
+# 如何快速使用YOLOv5
+
+## 安装
+
+有git bash的同学直接在bash里输入
+
+```bash
+git clone https://github.com/ultralytics/yolov5
+```
+
+将官方源码克隆下来
+
+或者[点击这里下载](https://k9t-my.sharepoint.com/:u:/g/personal/niimisora_vikuper_com/EYI-7CFam7RKr8i3jw9CozkBX3CyikEgXwGEO4OqfkwyhA?e=1D6FPv)
+
+### Windows
+
+解压到本地后用pycharm打开文件夹，选择好虚拟环境
+
+[![h1pdr8.png](https://z3.ax1x.com/2021/08/28/h1pdr8.png)](https://imgtu.com/i/h1pdr8)
+
+在下方Terminal中运行：
+
+```bash
+pip install -r requirements.txt
+```
+
+如下图：
+
+![h19wS1.png](https://z3.ax1x.com/2021/08/28/h19wS1.png)
+
+
+
+全部安装完成后，输入
+
+```bash
+python detect.py --source 0
+```
+
+将会自动下载一个14.1M的`yolov5s.pt`权重，启动摄像头开启实时检测
+
+可以看到`detect.py`可以配置的东西：
+
+```python
+		weights='yolov5s.pt',  # model.pt path(s)
+        source='data/images',  # file/dir/URL/glob, 0 for webcam
+        imgsz=640,  # inference size (pixels)
+        conf_thres=0.25,  # confidence threshold
+        iou_thres=0.45,  # NMS IOU threshold
+        max_det=1000,  # maximum detections per image
+        device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
+        view_img=False,  # show results
+        save_txt=False,  # save results to *.txt
+        save_conf=False,  # save confidences in --save-txt labels
+        save_crop=False,  # save cropped prediction boxes
+        nosave=False,  # do not save images/videos
+        classes=None,  # filter by class: --class 0, or --class 0 2 3
+        agnostic_nms=False,  # class-agnostic NMS
+        augment=False,  # augmented inference
+        visualize=False,  # visualize features
+        update=False,  # update all models
+        project='runs/detect',  # save results to project/name
+        name='exp',  # save results to project/name
+        exist_ok=False,  # existing project/name ok, do not increment
+        line_thickness=3,  # bounding box thickness (pixels)
+        hide_labels=False,  # hide labels
+        hide_conf=False,  # hide confidences
+        half=False,  # use FP16 half-precision inference
+```
+
+### Linux
+
+进入项目所在文件夹，激活环境，使用pip安装所需软件包
+
+```bash
+cd path/to/yolov5
+conda activate path/to/ur_venv_name
+pip install -r requirements.txt
+```
+
+可直接运行`detect.py` (当然Windows 也可)
+
+```
+python detect.py
+```
+
+将会下载`yolov5s.pt`，使用`data/images`文件夹下的demo测试
+
+```bash
+image 1/2 ./data/images/bus.jpg: 640x480 4 persons, 1 bus, 1 fire hydrant, Done. (0.044s)
+image 2/2 ./data/images/zidane.jpg: 384x640 2 persons, 2 ties, Done. (0.022s)
+Results saved to runs\detect\exp3
+```
+
+可以在runs\detect\exp文件夹下看到结果（具体地址看运行后Results saved to后面的地址）
+
+[![h1ieoD.jpg](https://z3.ax1x.com/2021/08/28/h1ieoD.jpg)](https://imgtu.com/i/h1ieoD)
+
+
+
+## 接口
+
+可以看到官方的`README文档`里有介绍，可以使用[PyTorch Hub](https://github.com/ultralytics/yolov5/issues/36)自动下载，加载官方提供的权重
+
+```python
+import torch
+
+# Model
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # or yolov5m, yolov5l, yolov5x, custom
+
+# Images
+img = 'https://ultralytics.com/images/zidane.jpg'  # or file, Path, PIL, OpenCV, numpy, list
+
+# Inference
+results = model(img)
+
+# Results
+results.print()  # or .show(), .save(), .crop(), .pandas(), etc.
+```
+
+`detect.py`也可以直接读入网络视频流进行检测，并把结果放到 `runs/detect`文件夹下
+
+```bash
+$ python detect.py --source 0  # webcam
+                            file.jpg  # image 
+                            file.mp4  # video
+                            path/  # directory
+                            path/*.jpg  # glob
+                            'https://youtu.be/NUsoVlDFqZg'  # YouTube
+                            'rtsp://example.com/media.mp4'  # RTSP, RTMP, HTTP stream
+```
+
+# 如何使用自己的数据集进行训练
+
+## 目标检测中两种常用的数据集格式
+
+### VOC格式
+
+```
+VOC_ROOT     #根目录
+    ├── JPEGImages         # 存放源图片
+    │     ├── imgs1.jpg     
+    │     ├── imgs2.jpg  
+    │     └── imgs3.jpg
+    ├── Annotations        # 存放xml文件，与JPEGImages中的图片一一对应，解释图片的内容等等
+    │     ├── imgs1.xml 
+    │     ├── imgs2.xml 
+    │     └── imgs3.xml 
+    └── ImageSets          
+        └── Main
+          ├── train.txt    # txt文件中每一行包含一个图片的名称
+          └── val.txt
+```
+
+txt文件格式：
+
+每行为图片的地址
+
+xml文件格式：
+
+```xml
+<annotation>
+    <folder>VOC_ROOT</folder>                           
+    <filename>imgs1.jpg</filename>  # 文件名
+    <size>                         # 图像尺寸（长宽以及通道数）                      
+        <width>500</width>
+        <height>332</height>
+        <depth>3</depth>
+    </size>
+    <segmented>1</segmented>       # 是否用于分割（在图像物体识别中无所谓）
+    <object>                       # 检测到的物体
+        <name>horse</name>         # 物体类别
+        <pose>Unspecified</pose>   # 拍摄角度，如果是自己的数据集就Unspecified
+        <truncated>0</truncated>   # 是否被截断（0表示完整)
+        <difficult>0</difficult>   # 目标是否难以识别（0表示容易识别）
+        <bndbox>                   # bounding-box（包含左下角和右上角xy坐标）
+            <xmin>100</xmin>
+            <ymin>96</ymin>
+            <xmax>355</xmax>
+            <ymax>324</ymax>
+        </bndbox>
+    </object>
+    <object>                       # 检测到多个物体
+        <name>person</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>198</xmin>
+            <ymin>58</ymin>
+            <xmax>286</xmax>
+            <ymax>197</ymax>
+        </bndbox>
+    </object>
+</annotation>
+```
+
+#### YOLO格式
+
+YOLO格式与VOC格式类似
+
+```
+DATA_ROOT     #根目录
+    ├── images        # 存放json格式的标注
+    │     ├── 000000000001.jpg 
+    │     ├── 000000000002.jpg 
+    │     └── 000000000003.jpg 
+    └── labels         # 存放图片文件
+    │     ├── 000000000001.txt
+    │     ├── 000000000002.txt
+    │     └── 000000000003.txt
+    └── classes.names
+    └── train.txt 
+    └── valid.txt
+    └── test.txt
+```
+
+`train.txt`文件每行为数据地址
+
+labels下的txt文件格式为
+
+```
+0 0.181640625 0.33469945355191255 0.05859375 0.10109289617486339
+1 0.3994140625 0.33060109289617484 0.080078125 0.12021857923497267
+0 0.6669921875 0.3128415300546448 0.068359375 0.13934426229508196
+
+```
+
+每一行表示一个框的信息
+
+分别为class X Y W H 
+
+### COCO格式
+
+```
+COCO_ROOT     #根目录
+    ├── annotations        # 存放json格式的标注
+    │     ├── instances_train2017.json   
+    │     └── instances_val2017.json
+    └── train2017         # 存放图片文件
+    │     ├── 000000000001.jpg 
+    │     ├── 000000000002.jpg 
+    │     └── 000000000003.jpg 
+    └── val2017        
+          ├── 000000000004.jpg 
+          └── 000000000005.jpg 
+```
+
+json格式：
+
+```json
+{
+  "info": info, 
+  "images": [image], 
+  "annotations": [annotation], 
+  "categories": [categories],
+  "licenses": [license],
+}
+```
+
+其中image格式为:
+
+```json
+# json['images'][0]
+{
+  'license': 4,
+  'file_name': '000000397133.jpg',
+  'coco_url': 'http://images.cocodataset.org/val2017/000000397133.jpg',
+  'height': 427,
+  'width': 640,
+  'date_captured': '2013-11-14 17:02:52',
+  'flickr_url': 'http://farm7.staticflickr.com/6116/6255196340_da26cf2c9e_z.jpg',
+  'id': 397133}
+```
+
+categories格式为：
+
+```json
+[
+  {'supercategory': 'person', 'id': 1, 'name': 'person'},
+  {'supercategory': 'vehicle', 'id': 2, 'name': 'bicycle'},
+  {'supercategory': 'vehicle', 'id': 3, 'name': 'car'},
+  {'supercategory': 'vehicle', 'id': 4, 'name': 'motorcycle'},
+  {'supercategory': 'vehicle', 'id': 5, 'name': 'airplane'},
+  {'supercategory': 'vehicle', 'id': 6, 'name': 'bus'},
+  {'supercategory': 'vehicle', 'id': 7, 'name': 'train'},
+  {'supercategory': 'vehicle', 'id': 8, 'name': 'truck'},
+  {'supercategory': 'vehicle', 'id': 9, 'name': 'boat'}
+  # ....
+]
+```
+
+annotations格式为：
+
+```json
+{'segmentation': [[0, 0, 60, 0, 60, 40, 0, 40]],
+ 'area': 240.000,
+ 'iscrowd': 0,
+ 'image_id': 289343,
+ 'bbox': [0., 0., 60., 40.],
+ 'category_id': 18,
+ 'id': 1768}
+```
+
+## 根据所选的数据集格式配置yaml文件
+
+在data目录下创建一个yaml文件，或者复制官方提供的配置文件进行删改
+
+我这里以口罩检测为例
+
+使用YOLO格式的数据
+
+新建一个文件为`mask.yaml`
+
+内容设置为：
+
+```yaml
+train: ./data/mask/train.txt  # train images 
+val: ./data/mask/valid.txt  # val images 
+
+# Classes
+nc: 3  # number of classes
+names: ['With_no_mask',
+          'With_mask',
+          'Wrong_wearing']  # class names
+```
+
+注：我这个是自制数据集，没有制作test集，故没有设置test数据，正常情况下需要设置
+
+names里的是类别名，顺序一定要与数据集的一致
+
+## 修改模型的yaml配置
+
+以yolov5s模型为例
+
+修改`models/yolov5s.yaml`，只用修改nc为number classes就行了，我这里3类，改为3
+
+```yaml
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+
+# Parameters
+nc: 3  # number of classes
+depth_multiple: 0.33  # model depth multipleda
+width_multiple: 0.50  # layer channel multiple
+anchors:
+  - [10,13, 16,30, 33,23]  # P3/8
+  - [30,61, 62,45, 59,119]  # P4/16
+  - [116,90, 156,198, 373,326]  # P5/32
+  
+  ......
+
+```
+
+## 修改train.py
+
+在`train.py`的大概420行的位置，修改`parse_opt`的默认配置
+
+```python
+parser = argparse.ArgumentParser()
+# 加载的权重文件,若是第一次训练，不加载权重，把这里default改为''
+parser.add_argument('--weights', type=str, default='', help='initial weights path')
+# 模型配置文件，网络结构，使用修改好的yolov5s.yaml文件
+parser.add_argument('--cfg', type=str, default='models/yolov5s.yaml', help='model.yaml path')
+# 数据集配置文件，数据集路径，类名等，使用数据集方面的mask.yaml文件
+parser.add_argument('--data', type=str, default='data/mask.yaml', help='data.yaml path')
+# 超参数文件
+parser.add_argument('--hyp', type=str, default='data/hyp.scratch.yaml', help='hyperparameters path')
+# 训练总轮次，1个epoch等于使用训练集中的全部样本训练一次，值越大模型越精确，训练时间也越长。默认300，我这里测试10轮改为10
+parser.add_argument('--epochs', type=int, default=10)
+# 批次大小，一次训练所选取的样本数，显卡不太行的话，就调小点，建议先调小点，能跑起来再加，我这里调成了2，跑起来后证明太小了T.T
+parser.add_argument('--batch-size', type=int, default=2, help='total batch size for all GPUs')
+# 输入图片分辨率大小，nargs='+'表示参数可设置一个或多个,我这里改为了经典的416😹
+parser.add_argument('--imgsz', '--img', '--img-size', type=int, default=416, help='train, val image size (pixels)')
+# 是否采用矩形训练，默认False，开启后可显著的减少推理时间
+parser.add_argument('--rect', action='store_true', help='rectangular training')
+# 接着打断训练上次的结果接着训练
+parser.add_argument('--resume', nargs='?', const=True, default=False, help='resume most recent training')
+# 不保存模型，默认False
+parser.add_argument('--nosave', action='store_true', help='only save final checkpoint')
+# 不进行test，默认False
+parser.add_argument('--notest', action='store_true', help='only test final epoch')
+# 不自动调整anchor，默认False
+parser.add_argument('--noautoanchor', action='store_true', help='disable autoanchor check')
+# 是否进行超参数进化，默认False
+parser.add_argument('--evolve', action='store_true', help='evolve hyperparameters')
+# 谷歌云盘bucket，一般不会用到
+parser.add_argument('--bucket', type=str, default='', help='gsutil bucket')
+# 是否提前缓存图片到内存，以加快训练速度，默认False
+parser.add_argument('--cache-images', action='store_true', help='cache images for faster training')
+# 选用加权图像进行训练
+parser.add_argument('--image-weights', action='store_true', help='use weighted image selection for training')
+# 训练的设备，cpu；0(表示一个gpu设备cuda:0)；0,1,2,3(多个gpu设备)。值为空时，训练时默认使用计算机自带的显卡或CPU
+parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+# 是否进行多尺度训练，默认False
+parser.add_argument('--multi-scale', action='store_true', help='vary img-size +/- 50%%')
+# 数据集是否只有一个类别，默认False
+parser.add_argument('--single-cls', action='store_true', help='train multi-class data as single-class')
+# 是否使用adam优化器
+parser.add_argument('--adam', action='store_true', help='use torch.optim.Adam() optimizer')
+# 是否使用跨卡同步BN,在DDP模式使用
+parser.add_argument('--sync-bn', action='store_true', help='use SyncBatchNorm, only available in DDP mode')
+# gpu编号
+parser.add_argument('--local_rank', type=int, default=-1, help='DDP parameter, do not modify')
+# W&B记录的图像数，最大为100
+parser.add_argument('--log-imgs', type=int, default=16, help='number of images for W&B logging, max 100')
+# 记录最终训练的模型，即last.pt
+parser.add_argument('--log-artifacts', action='store_true', help='log artifacts, i.e. final trained model')
+# dataloader的最大worker数量，建议先调成0，能跑起来再加
+parser.add_argument('--workers', type=int, default=0, help='maximum number of dataloader workers')
+# 训练结果所存放的路径，默认为runs/train
+parser.add_argument('--project', default='runs/train', help='save to project/name')
+# 训练结果所在文件夹的名称，默认为exp
+parser.add_argument('--name', default='exp', help='save to project/name')
+# 若现有的project/name存在，则不进行递增
+parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
+opt = parser.parse_args()
+```
+
+## 可以直接运行train.py了
+
+跑起来是这样的，可以看到才用了不到0.5G的显存，才3个迭代一秒，说明batch_size确实调得太小了
+
+[![h1lzTJ.png](https://z3.ax1x.com/2021/08/28/h1lzTJ.png)](https://imgtu.com/i/h1lzTJ)
+
+跑完后的summary：
+
+[![h11KfI.png](https://z3.ax1x.com/2021/08/28/h11KfI.png)](https://imgtu.com/i/h11KfI)
+
+可见我这个数据集很不均衡
+
+如果配置了wanb还能看到各种报告（比tensorboard详细很多）
+
+[![h11010.png](https://z3.ax1x.com/2021/08/28/h11010.png)](https://imgtu.com/i/h11010)
+
+[![h11h1x.png](https://z3.ax1x.com/2021/08/28/h11h1x.png)](https://imgtu.com/i/h11h1x)
+
