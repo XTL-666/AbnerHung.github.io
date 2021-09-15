@@ -1,6 +1,6 @@
 ---
 redirect_from: /_posts/2021-9-15-Data_Structure.md/
-title: JZoffer
+title: DataStructure
 tags:
   - Java
   - DataStructure
