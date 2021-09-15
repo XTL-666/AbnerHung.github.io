@@ -130,7 +130,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                       ]
                   });'
               ></script>
-              <script src='./assets/to_top.js'></script>
+              
             - | # 百度爬虫推送，http站点使用 http://push.zhanzhang.baidu.com/push.js
               <script
                 src='https://zz.bdstatic.com/linksubmit/push.js'
