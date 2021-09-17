@@ -5,20 +5,75 @@ tags:
   - Java
   - DataStructure
 ---
-
 # Data Structure
 
-* [数组](#array)
-* [链表](#linked-list)
-* [栈](#stack)
-* [队列](#queue)
-* [二叉树](#binary-tree)
-* [二叉搜索树](#binary-search-tree)
-* [平衡查找树](#balanced-search-tree)
-* [堆](#heap)
-* [字典树](#trie)
-* [并查集](#union-find)
-* [哈希表](#hash-table)
+- [Data Structure](#data-structure)
+  - [Array](#array)
+    - [稀疏数组](#稀疏数组)
+    - [时间复杂度](#时间复杂度)
+  - [Linked List](#linked-list)
+    - [单链表](#单链表)
+      - [结点结构](#结点结构)
+      - [单链表实现 ](#单链表实现-)
+    - [双指针技巧](#双指针技巧)
+      - [代码模板](#代码模板)
+      - [注意事项](#注意事项)
+      - [复杂度分析](#复杂度分析)
+    - [环形链表](#环形链表)
+      - [LeetCode 141 Linked List Cycle](#leetcode-141-linked-list-cycle)
+        - [代码实现](#代码实现)
+    - [环形链表II](#环形链表ii)
+      - [LeetCode 142 Linked List Cycle II](#leetcode-142-linked-list-cycle-ii)
+        - [代码实现](#代码实现-1)
+    - [相交链表](#相交链表)
+      - [LeetCode 160 相交链表](#leetcode-160-相交链表)
+        - [代码实现](#代码实现-2)
+    - [删除链表的倒数第N个节点](#删除链表的倒数第n个节点)
+        - [代码实现](#代码实现-3)
+    - [反转链表](#反转链表)
+      - [代码实现](#代码实现-4)
+    - [移除链表元素](#移除链表元素)
+      - [代码实现](#代码实现-5)
+    - [奇偶链表](#奇偶链表)
+      - [LeetCode](#leetcode)
+        - [代码实现](#代码实现-6)
+    - [回文链表](#回文链表)
+      - [LeetCode 234 回文链表](#leetcode-234-回文链表)
+        - [代码实现](#代码实现-7)
+    - [小结 链表经典问题](#小结-链表经典问题)
+    - [双链表](#双链表)
+      - [结点结构](#结点结构-1)
+      - [添加操作](#添加操作)
+      - [删除操作](#删除操作)
+      - [双链表实现](#双链表实现)
+    - [时间复杂度比较](#时间复杂度比较)
+    - [合并两个有序链表](#合并两个有序链表)
+      - [Leetcode 21 Merge Two Sorted Lists ](#leetcode-21-merge-two-sorted-lists-)
+        - [代码实现](#代码实现-8)
+    - [两数相加](#两数相加)
+      - [Leetcode 2 addTwoNumbers](#leetcode-2-addtwonumbers)
+        - [代码实现](#代码实现-9)
+    - [ 扁平化多级双向链表](#-扁平化多级双向链表)
+      - [LeetCode 430 Flatten a Multilevel Doubly Linked List](#leetcode-430-flatten-a-multilevel-doubly-linked-list)
+        - [代码实现](#代码实现-10)
+    - [复制带随机指针的链表](#复制带随机指针的链表)
+      - [LeetCode 138 Copy List with Random Pointer](#leetcode-138-copy-list-with-random-pointer)
+        - [代码实现](#代码实现-11)
+    - [旋转链表](#旋转链表)
+      - [LeetCode 61 Rotate List ](#leetcode-61-rotate-list-)
+        - [代码实现](#代码实现-12)
+  - [Stack](#stack)
+  - [queue](#queue)
+    - [队列实现](#队列实现)
+  - [binary-tree](#binary-tree)
+  - [binary-search-tree](#binary-search-tree)
+  - [balanced-search-tree](#balanced-search-tree)
+    - [介绍](#介绍)
+    - [AVL 树](#avl-树)
+  - [heap](#heap)
+  - [trie](#trie)
+  - [union-find](#union-find)
+  - [hash-table](#hash-table)
 
 ## Array
 
@@ -830,7 +885,606 @@ class Solution {
 }
 ```
 
+### 回文链表
 
+#### LeetCode 234 回文链表
+
+给你一个单链表的头节点 `head` ，请你判断该链表是否为回文链表。如果是，返回 `true` ；否则，返回 `false` 。
+
+##### 代码实现
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if(head == null || head.next == null) {
+            return true;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode pre = null;
+        while(fast!=null&&fast.next!=null){
+            fast=fast.next.next;
+            ListNode tmp = slow.next;
+            slow.next=pre;
+            pre = slow;
+            slow = tmp;
+        }
+        if(fast != null) {
+            slow = slow.next;
+        }
+        while(pre!=null&&slow!=null){
+            if(pre.val!=slow.val){
+                return false;
+            }
+            pre = pre.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+   
+}
+```
+
+### 小结 链表经典问题
+
+> 1. 通过一些测试用例可以节省您的时间。
+>
+> 使用链表时不易调试。因此，在编写代码之前，自己尝试几个不同的示例来验证您的算法总是很有用的。
+>
+> 2. 你可以同时使用多个指针。
+>
+> 有时，当你为链表问题设计算法时，可能需要同时跟踪多个结点。您应该记住需要跟踪哪些结点，并且可以自由地使用几个不同的结点指针来同时跟踪这些结点。
+>
+> 如果你使用多个指针，最好为它们指定适当的名称，以防将来必须调试或检查代码。
+>
+> 3. 在许多情况下，你需要跟踪当前结点的前一个结点。
+>
+> 你无法追溯单链表中的前一个结点。因此，您不仅要存储当前结点，还要存储前一个结点。这在双链表中是不同的，我们将在后面的章节中介绍。
+>
+> 作者：力扣 (LeetCode)
+> 链接：https://leetcode-cn.com/leetbook/read/linked-list/fraqr/
+> 来源：力扣（LeetCode）
+
+### 双链表
+
+#### 结点结构
+
+```java
+// Definition for doubly-linked list.
+class DoublyListNode {
+    int val;
+    DoublyListNode next, prev;
+    DoublyListNode(int x) {val = x;}
+}
+```
+
+```c++
+// Definition for doubly-linked list.
+struct DoublyListNode {
+    int val;
+    DoublyListNode *next, *prev;
+    DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
+};
+```
+
+#### 添加操作
+
+如果我们想在现有的结点 `prev` 之后插入一个新的结点 `cur`，我们可以将此过程分为两个步骤：
+
+1. 链接 `cur` 与 `prev` 和 `next`，其中 `next` 是 `prev` 原始的下一个节点；
+
+   <img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/04/28/screen-shot-2018-04-28-at-173045.png" style="zoom:50%;" />
+
+2. 用 `cur` 重新链接 `prev` 和 `next`。
+
+   <img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/04/29/screen-shot-2018-04-28-at-173055.png" style="zoom:67%;" />
+
+#### 删除操作
+
+![](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/04/18/screen-shot-2018-04-18-at-142428.png)
+
+#### 双链表实现
+
+LeetCode官方源码
+
+```java
+public class ListNode {
+  int val;
+  ListNode next;
+  ListNode prev;
+  ListNode(int x) { val = x; }
+}
+
+class MyLinkedList {
+  int size;
+  // sentinel nodes as pseudo-head and pseudo-tail
+  ListNode head, tail;
+  public MyLinkedList() {
+    size = 0;
+    head = new ListNode(0);
+    tail = new ListNode(0);
+    head.next = tail;
+    tail.prev = head;
+  }
+
+  /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+  public int get(int index) {
+    // if index is invalid
+    if (index < 0 || index >= size) return -1;
+
+    // choose the fastest way: to move from the head
+    // or to move from the tail
+    ListNode curr = head;
+    if (index + 1 < size - index)
+      for(int i = 0; i < index + 1; ++i) curr = curr.next;
+    else {
+      curr = tail;
+      for(int i = 0; i < size - index; ++i) curr = curr.prev;
+    }
+
+    return curr.val;
+  }
+
+  /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+  public void addAtHead(int val) {
+    ListNode pred = head, succ = head.next;
+
+    ++size;
+    ListNode toAdd = new ListNode(val);
+    toAdd.prev = pred;
+    toAdd.next = succ;
+    pred.next = toAdd;
+    succ.prev = toAdd;
+  }
+
+  /** Append a node of value val to the last element of the linked list. */
+  public void addAtTail(int val) {
+    ListNode succ = tail, pred = tail.prev;
+
+    ++size;
+    ListNode toAdd = new ListNode(val);
+    toAdd.prev = pred;
+    toAdd.next = succ;
+    pred.next = toAdd;
+    succ.prev = toAdd;
+  }
+
+  /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+  public void addAtIndex(int index, int val) {
+    // If index is greater than the length, 
+    // the node will not be inserted.
+    if (index > size) return;
+
+    // [so weird] If index is negative, 
+    // the node will be inserted at the head of the list.
+    if (index < 0) index = 0;
+
+    // find predecessor and successor of the node to be added
+    ListNode pred, succ;
+    if (index < size - index) {
+      pred = head;
+      for(int i = 0; i < index; ++i) pred = pred.next;
+      succ = pred.next;
+    }
+    else {
+      succ = tail;
+      for (int i = 0; i < size - index; ++i) succ = succ.prev;
+      pred = succ.prev;
+    }
+
+    // insertion itself
+    ++size;
+    ListNode toAdd = new ListNode(val);
+    toAdd.prev = pred;
+    toAdd.next = succ;
+    pred.next = toAdd;
+    succ.prev = toAdd;
+  }
+
+  /** Delete the index-th node in the linked list, if the index is valid. */
+  public void deleteAtIndex(int index) {
+    // if the index is invalid, do nothing
+    if (index < 0 || index >= size) return;
+
+    // find predecessor and successor of the node to be deleted
+    ListNode pred, succ;
+    if (index < size - index) {
+      pred = head;
+      for(int i = 0; i < index; ++i) pred = pred.next;
+      succ = pred.next.next;
+    }
+    else {
+      succ = tail;
+      for (int i = 0; i < size - index - 1; ++i) succ = succ.prev;
+      pred = succ.prev.prev;
+    }
+
+    // delete pred.next 
+    --size;
+    pred.next = succ;
+    succ.prev = pred;
+  }
+}
+```
+
+
+
+### 时间复杂度比较
+
+![](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/04/29/screen-shot-2018-04-28-at-174531.png)
+
+### 合并两个有序链表
+
+#### Leetcode 21 Merge Two Sorted Lists 
+
+将两个升序链表合并为一个新的 **升序** 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+
+![](https://assets.leetcode.com/uploads/2020/10/03/merge_ex1.jpg)
+
+```bash
+输入：l1 = [1,2,4], l2 = [1,3,4]
+输出：[1,1,2,3,4,4]
+```
+
+##### 代码实现
+
+递归写法
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1==null){
+            return l2;
+        }
+        else if(l2==null){
+            return l1;
+        }
+        if(l1.val>=l2.val){
+            l2.next = mergeTwoLists(l1,l2.next);
+            return l2;
+        }
+        else{
+            l1.next = mergeTwoLists(l1.next,l2);
+            return l1;
+        }
+    }
+}
+```
+
+### 两数相加
+
+#### Leetcode 2 addTwoNumbers
+
+给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+
+请你将两个数相加，并以相同形式返回一个表示和的链表。
+
+你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+![](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/01/02/addtwonumber1.jpg)
+
+
+
+```bash
+输入：l1 = [2,4,3], l2 = [5,6,4]
+输出：[7,0,8]
+解释：342 + 465 = 807.
+```
+
+##### 代码实现
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode out = dummy;
+        int sum = 0;
+        for(;(l1!=null)||(l2!=null);)
+        {
+            if(l1!=null)
+            {
+                sum+=l1.val;
+                l1=l1.next;
+            }
+            if(l2!=null)
+            {
+                sum+=l2.val;
+                l2=l2.next;
+            }
+            out.next = new ListNode(sum%10);
+            sum/=10;
+            out=out.next;
+        }
+        if(sum>0)
+        {
+            out.next = new ListNode(1);
+        }
+        return dummy.next;
+    }
+
+}
+```
+
+###  扁平化多级双向链表
+
+#### LeetCode 430 Flatten a Multilevel Doubly Linked List
+
+多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表。这些子列表也可能会有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。
+
+给你位于列表第一级的头节点，请你扁平化列表，使所有结点出现在单级双链表中。
+
+```baah
+输入：head = [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+输出：[1,2,3,7,8,11,12,9,10,4,5,6]
+解释：
+```
+
+输入的多级列表如下图所示：
+
+[![eg1](https://raw.githubusercontent.com/Ray-56/image-service/master/picgo/20201027/104455.png)](https://raw.githubusercontent.com/Ray-56/image-service/master/picgo/20201027/104455.png)
+
+扁平化后的链表如下图：
+
+[![eg2](https://raw.githubusercontent.com/Ray-56/image-service/master/picgo/20201027/104604.png)](https://raw.githubusercontent.com/Ray-56/image-service/master/picgo/20201027/104604.png)
+
+示例 2:
+
+```bash
+输入：head = [1,2,null,3]
+输出：[1,3,2]
+解释：
+
+输入的多级列表如下图所示：
+
+  1---2---NULL
+  |
+  3---NULL
+```
+
+示例3：
+
+```bash
+输入：head = []
+输出：[]
+```
+
+**如何表示测试用例中的多级链表？**
+
+以 示例 1 为例：
+
+```bash
+ 1---2---3---4---5---6--NULL
+         |
+         7---8---9---10--NULL
+             |
+             11--12--NULL
+```
+
+序列化其中的每一级之后：
+
+```bash
+[1,2,3,4,5,6,null]
+[7,8,9,10,null]
+[11,12,null]
+```
+
+为了将每一级都序列化到一起，我们需要每一级中添加值为 null 的元素，以表示没有节点连接到上一级的上级节点。
+
+```bash
+[1,2,3,4,5,6,null]
+[null,null,7,8,9,10,null]
+[null,11,12,null]
+```
+
+合并所有序列化结果，并去除末尾的 null 。
+
+```bash
+[1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+```
+
+##### 代码实现
+
+dfs遍历
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node prev;
+    public Node next;
+    public Node child;
+};
+*/
+
+class Solution {
+    private Node fuck = new Node(0);
+    public Node flatten(Node head) {
+        dfs(head);
+        if(head!=null){
+            head.prev = null;
+        }
+        return head;
+    }
+    private void dfs(Node x){
+        if(x==null)
+        {
+            return;
+        }
+        Node l = x.child;
+        Node r = x.next;
+        fuck.next = x;
+        x.prev = fuck;
+        fuck = x;
+        dfs(l);
+        x.child = null;
+        dfs(r);
+    }
+
+}
+```
+
+### 复制带随机指针的链表
+
+#### LeetCode 138 Copy List with Random Pointer
+
+给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。
+
+要求返回这个链表的 **深拷贝**。
+
+```text
+输入：
+{"$id":"1","next":{"$id":"2","next":null,"random":{"$ref":"2"},"val":2},"random":{"$ref":"2"},"val":1}
+
+解释：
+节点 1 的值是 1，它的下一个指针和随机指针都指向节点 2 。
+节点 2 的值是 2，它的下一个指针指向 null，随机指针指向它自己。
+```
+
+**提示：**
+
+1. 你必须返回**给定头的拷贝**作为对克隆列表的引用。
+
+##### 代码实现
+
+时间和空间都是O(N)的算法，维护一个HashMap存结点对应关系；
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        Node NewNode;
+        Node temp = head;
+        HashMap<Node, Node> m = new HashMap<>();
+        while(temp!=null){
+            NewNode = new Node(temp.val);
+            m.put(temp,NewNode);
+            temp = temp.next;
+        }
+        temp = head;
+        NewNode = m.get(temp);
+        while(temp!=null)
+        {
+            NewNode.next = m.get(temp.next);
+            NewNode.random = m.get(temp.random);
+            temp = temp.next;
+            NewNode = NewNode.next;
+        }
+        return m.get(head);
+    }
+}
+```
+
+Better solution : 新链表每个结点分别插入在新链表每个结点右边，一次遍历得到一个新旧结点交替的链表，再次遍历根据旧结点random指针，让新结点random指针指向对应节点。再遍历一次逻辑删除旧结点。
+
+时间：O(N)  ；空间： O(1)
+
+
+
+### 旋转链表
+
+#### LeetCode 61 Rotate List 
+
+给你一个链表的头节点 `head` ，旋转链表，将链表每个节点向右移动 `k` 个位置。
+
+![](https://assets.leetcode.com/uploads/2020/11/13/rotate1.jpg)
+
+```
+输入：head = [1,2,3,4,5], k = 2
+输出：[4,5,1,2,3]
+```
+
+##### 代码实现
+
+构成环形链表，在合适的地方断开。
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null||head.next==null){
+            return head;
+        }
+        ListNode temp = head;
+        int counter = 1;
+        while(temp.next!=null){
+            counter++;
+            temp = temp.next;
+        }
+        if(k==counter){
+            return head;
+        }
+
+        temp.next = head;
+        temp = head;
+        
+        k%=counter;
+        counter -= k;
+
+        counter--;
+        while((counter--)>0)
+        {
+            temp = temp.next;
+        }
+        head = temp.next;
+        temp.next = null;
+        return head;
+    }
+}
+```
 
 
 
@@ -844,11 +1498,148 @@ class Solution {
 
 
 
-
-
-
-
 ## queue
+
+<img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/08/14/screen-shot-2018-05-03-at-151021.png" style="zoom:50%;" />
+
+​    在 FIFO 数据结构中，将`首先处理添加到队列中的第一个元素`。
+
+​    如上图所示，队列是典型的 FIFO 数据结构。插入（insert）操作也称作入队（enqueue），新元素始终被添加在`队列的末尾`。 删除（delete）操作也被称为出队（dequeue)。 你只能移除`第一个元素`。
+
+入队与出队
+
+![](https://pic.leetcode-cn.com/44b3a817f0880f168de9574075b61bd204fdc77748d4e04448603d6956c6428a-%E5%87%BA%E5%85%A5%E9%98%9F.gif)
+
+### 队列实现
+
+```java
+// "static void main" must be defined in a public class.
+
+class MyQueue {
+    // store elements
+    private List<Integer> data;         
+    // a pointer to indicate the start position
+    private int p_start;            
+    public MyQueue() {
+        data = new ArrayList<Integer>();
+        p_start = 0;
+    }
+    /** Insert an element into the queue. Return true if the operation is successful. */
+    public boolean enQueue(int x) {
+        data.add(x);
+        return true;
+    };    
+    /** Delete an element from the queue. Return true if the operation is successful. */
+    public boolean deQueue() {
+        if (isEmpty() == true) {
+            return false;
+        }
+        p_start++;
+        return true;
+    }
+    /** Get the front item from the queue. */
+    public int Front() {
+        return data.get(p_start);
+    }
+    /** Checks whether the queue is empty or not. */
+    public boolean isEmpty() {
+        return p_start >= data.size();
+    }     
+};
+
+public class Main {
+    public static void main(String[] args) {
+        MyQueue q = new MyQueue();
+        q.enQueue(5);
+        q.enQueue(3);
+        if (q.isEmpty() == false) {
+            System.out.println(q.Front());
+        }
+        q.deQueue();
+        if (q.isEmpty() == false) {
+            System.out.println(q.Front());
+        }
+        q.deQueue();
+        if (q.isEmpty() == false) {
+            System.out.println(q.Front());
+        }
+    }
+}
+```
+
+```c++
+#include <iostream>
+
+class MyQueue {
+    private:
+        // store elements
+        vector<int> data;       
+        // a pointer to indicate the start position
+        int p_start;            
+    public:
+        MyQueue() {p_start = 0;}
+        /** Insert an element into the queue. Return true if the operation is successful. */
+        bool enQueue(int x) {
+            data.push_back(x);
+            return true;
+        }
+        /** Delete an element from the queue. Return true if the operation is successful. */
+        bool deQueue() {
+            if (isEmpty()) {
+                return false;
+            }
+            p_start++;
+            return true;
+        };
+        /** Get the front item from the queue. */
+        int Front() {
+            return data[p_start];
+        };
+        /** Checks whether the queue is empty or not. */
+        bool isEmpty()  {
+            return p_start >= data.size();
+        }
+};
+
+int main() {
+    MyQueue q;
+    q.enQueue(5);
+    q.enQueue(3);
+    if (!q.isEmpty()) {
+        cout << q.Front() << endl;
+    }
+    q.deQueue();
+    if (!q.isEmpty()) {
+        cout << q.Front() << endl;
+    }
+    q.deQueue();
+    if (!q.isEmpty()) {
+        cout << q.Front() << endl;
+    }
+}
+```
+
+**缺点**
+
+上面的实现很简单，但在某些情况下效率很低。 随着起始指针的移动，浪费了越来越多的空间。 当我们有空间限制时，这将是难以接受的。
+
+![](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/21/screen-shot-2018-07-21-at-153558.png)
+
+让我们考虑一种情况，即我们只能分配一个最大长度为 5 的数组。当我们只添加少于 5 个元素时，我们的解决方案很有效。 例如，如果我们只调用入队函数四次后还想要将元素 10 入队，那么我们可以成功。
+
+但是我们不能接受更多的入队请求，这是合理的，因为现在队列已经满了。但是如果我们将一个元素出队呢？
+
+![](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/21/screen-shot-2018-07-21-at-153713.png)
+
+实际上，在这种情况下，我们应该能够再接受一个元素。
+
+<div><div><div class="css-hgmg3m-Container e1l4e1yy0"><img src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide48.png" class="css-58ju5r-Img e1l4e1yy1"><img src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide49_2.png" class="css-58ju5r-Img e1l4e1yy1" hidden=""><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide50.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide51.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide52.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide53.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide54.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide55.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide56.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide57.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide58.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide59.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide60.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide61.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide62.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide63.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide64.png" class="css-58ju5r-Img e1l4e1yy1"></div><div class="css-y1zd58-Container e2y5b7y0"><svg viewBox="0 0 24 24" width="1em" height="1em" class="e2y5b7y2 css-2gwest-icon-Button-AutoPlayButton"><defs><path id="play-arrow_svg__a" d="M8 5v14l11-7z"></path><mask id="play-arrow_svg__b"><use fill-rule="evenodd" xlink:href="#play-arrow_svg__a"></use></mask></defs><g fill-rule="evenodd"><use xlink:href="#play-arrow_svg__a"></use><g fill-rule="nonzero" mask="url(#play-arrow_svg__b)"><path d="M0 0h24v24H0z"></path></g></g></svg><svg viewBox="0 0 24 24" width="1em" height="1em" class="e2y5b7y1 css-bs8j34-icon-Button"><path d="M18 18l-8.5-6L18 6zM8 6v12H6V6z"></path></svg><span class="css-iq4chg-Indicator e2y5b7y3">1 / 17</span><svg viewBox="0 0 24 24" width="1em" height="1em" class="e2y5b7y1 css-bs8j34-icon-Button"><path d="M6 18l8.5-6L6 6zM16 6v12h2V6z"></path></svg></div></div></div>
+
+
+
+
+
+
 
 
 
