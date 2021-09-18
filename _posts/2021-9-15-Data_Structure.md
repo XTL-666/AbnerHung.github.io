@@ -1634,19 +1634,367 @@ int main() {
 
 实际上，在这种情况下，我们应该能够再接受一个元素。
 
-<p><lc-slider slides="[{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide48.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide49_2.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide50.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide51.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide52.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide53.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide54.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide55.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide56.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide57.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide58.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide59.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide60.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide61.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide62.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide63.png&quot;,&quot;duration&quot;:1200},{&quot;url&quot;:&quot;https://pic.leetcode-cn.com/Figures/circular_queue/Slide64.png&quot;,&quot;duration&quot;:1200}]"></lc-slider><div><div><div class="css-hgmg3m-Container e1l4e1yy0"><img src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide48.png" class="css-58ju5r-Img e1l4e1yy1"><img src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide49_2.png" class="css-58ju5r-Img e1l4e1yy1" hidden=""><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide50.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide51.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide52.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide53.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide54.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide55.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide56.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide57.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide58.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide59.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide60.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide61.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide62.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide63.png" class="css-58ju5r-Img e1l4e1yy1"><img hidden="" src="https://pic.leetcode-cn.com/Figures/circular_queue/Slide64.png" class="css-58ju5r-Img e1l4e1yy1"></div><div class="css-y1zd58-Container e2y5b7y0"><svg viewBox="0 0 24 24" width="1em" height="1em" class="e2y5b7y2 css-2gwest-icon-Button-AutoPlayButton"><defs><path id="play-arrow_svg__a" d="M8 5v14l11-7z"></path><mask id="play-arrow_svg__b"><use fill-rule="evenodd" xlink:href="#play-arrow_svg__a"></use></mask></defs><g fill-rule="evenodd"><use xlink:href="#play-arrow_svg__a"></use><g fill-rule="nonzero" mask="url(#play-arrow_svg__b)"><path d="M0 0h24v24H0z"></path></g></g></svg><svg viewBox="0 0 24 24" width="1em" height="1em" class="e2y5b7y1 css-bs8j34-icon-Button"><path d="M18 18l-8.5-6L18 6zM8 6v12H6V6z"></path></svg><span class="css-iq4chg-Indicator e2y5b7y3">1 / 17</span><svg viewBox="0 0 24 24" width="1em" height="1em" class="e2y5b7y1 css-bs8j34-icon-Button"><path d="M6 18l8.5-6L6 6zM16 6v12h2V6z"></path></svg></div></div></div></p>
+[![4QHx0S.gif](https://z3.ax1x.com/2021/09/18/4QHx0S.gif)](https://imgtu.com/i/4QHx0S)
 
 
 
 
+### 循环队列
+
+#### LeetCode 622 设计环形队列
+
+设计你的循环队列实现。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。它也被称为“环形缓冲器”。
+
+循环队列的一个好处是我们可以利用这个队列之前用过的空间。在一个普通队列里，一旦一个队列满了，我们就不能插入下一个元素，即使在队列前面仍有空间。但是使用循环队列，我们能使用这些空间去存储新的值。
+
+你的实现应该支持如下操作：
+
+- `MyCircularQueue(k)`: 构造器，设置队列长度为 k 。
+- `Front`: 从队首获取元素。如果队列为空，返回 -1 。
+- `Rear`: 获取队尾元素。如果队列为空，返回 -1 。
+- `enQueue(value)`: 向循环队列插入一个元素。如果成功插入则返回真。
+- `deQueue()`: 从循环队列中删除一个元素。如果成功删除则返回真。
+- `isEmpty()`: 检查循环队列是否为空。
+- `isFull()`: 检查循环队列是否已满。
 
 
 
+```java
+MyCircularQueue circularQueue = new MyCircularQueue(3); // 设置长度为 3
+circularQueue.enQueue(1);  // 返回 true
+circularQueue.enQueue(2);  // 返回 true
+circularQueue.enQueue(3);  // 返回 true
+circularQueue.enQueue(4);  // 返回 false，队列已满
+circularQueue.Rear();  // 返回 3
+circularQueue.isFull();  // 返回 true
+circularQueue.deQueue();  // 返回 true
+circularQueue.enQueue(4);  // 返回 true
+circularQueue.Rear();  // 返回 4
+```
 
 
 
+##### 代码实现
+
+```java
+class MyCircularQueue {
+
+    private int[] data;
+    private int front, tail;
+
+    public MyCircularQueue(int k) {
+        data = new int[k+1];
+        front = 0;
+        tail = 0;
+    }
+    
+    public boolean enQueue(int value) {
+        if(isFull()){
+            return false;
+        }
+        data[tail] = value;
+        tail = (tail + 1) % data.length;
+        return true;
+    }
+    
+    public boolean deQueue() {
+        if(isEmpty()){
+            return false;
+        }
+        front = (front + 1) % data.length;
+        return true;
+    }
+    
+    public int Front() {
+        if(isEmpty()){
+            return -1;
+        }
+        return data[front];
+    }
+    
+    public int Rear() {
+        if(isEmpty()){
+            return -1;
+        }
+        return data[(tail - 1 + data.length) % data.length];
+    }
+    
+    public boolean isEmpty() {
+        return front==tail;
+    }
+    
+    public boolean isFull() {
+        return (tail + 1) % data.length == front;
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * boolean param_1 = obj.enQueue(value);
+ * boolean param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * boolean param_5 = obj.isEmpty();
+ * boolean param_6 = obj.isFull();
+ */
+```
+
+官方代码：
+
+```java
+class MyCircularQueue {
+    
+    private int[] data;
+    private int head;
+    private int tail;
+    private int size;
+
+    /** Initialize your data structure here. Set the size of the queue to be k. */
+    public MyCircularQueue(int k) {
+        data = new int[k];
+        head = -1;
+        tail = -1;
+        size = k;
+    }
+    
+    /** Insert an element into the circular queue. Return true if the operation is successful. */
+    public boolean enQueue(int value) {
+        if (isFull() == true) {
+            return false;
+        }
+        if (isEmpty() == true) {
+            head = 0;
+        }
+        tail = (tail + 1) % size;
+        data[tail] = value;
+        return true;
+    }
+    
+    /** Delete an element from the circular queue. Return true if the operation is successful. */
+    public boolean deQueue() {
+        if (isEmpty() == true) {
+            return false;
+        }
+        if (head == tail) {
+            head = -1;
+            tail = -1;
+            return true;
+        }
+        head = (head + 1) % size;
+        return true;
+    }
+    
+    /** Get the front item from the queue. */
+    public int Front() {
+        if (isEmpty() == true) {
+            return -1;
+        }
+        return data[head];
+    }
+    
+    /** Get the last item from the queue. */
+    public int Rear() {
+        if (isEmpty() == true) {
+            return -1;
+        }
+        return data[tail];
+    }
+    
+    /** Checks whether the circular queue is empty or not. */
+    public boolean isEmpty() {
+        return head == -1;
+    }
+    
+    /** Checks whether the circular queue is full or not. */
+    public boolean isFull() {
+        return ((tail + 1) % size) == head;
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * boolean param_1 = obj.enQueue(value);
+ * boolean param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * boolean param_5 = obj.isEmpty();
+ * boolean param_6 = obj.isFull();
+ */
+```
+
+别造轮子了，用库函数就行了：
+
+```java
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        // 1. Initialize a queue.
+        Queue<Integer> q = new LinkedList();
+        // 2. Get the first element - return null if queue is empty.
+        System.out.println("The first element is: " + q.peek());
+        // 3. Push new element.
+        q.offer(5);
+        q.offer(13);
+        q.offer(8);
+        q.offer(6);
+        // 4. Pop an element.
+        q.poll();
+        // 5. Get the first element.
+        System.out.println("The first element is: " + q.peek());
+        // 7. Get the size of the queue.
+        System.out.println("The size is: " + q.size());
+    }
+}
+```
+
+```c++
+#include <iostream>
+
+int main() {
+    // 1. Initialize a queue.
+    queue<int> q;
+    // 2. Push new element.
+    q.push(5);
+    q.push(13);
+    q.push(8);
+    q.push(6);
+    // 3. Check if queue is empty.
+    if (q.empty()) {
+        cout << "Queue is empty!" << endl;
+        return 0;
+    }
+    // 4. Pop an element.
+    q.pop();
+    // 5. Get the first element.
+    cout << "The first element is: " << q.front() << endl;
+    // 6. Get the last element.
+    cout << "The last element is: " << q.back() << endl;
+    // 7. Get the size of the queue.
+    cout << "The size is: " << q.size() << endl;
+}
+```
 
 
+
+### 队列&BFS
+
+如何使用 BFS 来找出根结点 `A` 和目标结点 `G` 之间的最短路径:
+
+[![4QD7Gj.gif](https://z3.ax1x.com/2021/09/18/4QD7Gj.gif)](https://imgtu.com/i/4QD7Gj)
+
+
+
+> 在特定问题中执行 BFS 之前确定结点和边缘非常重要。通常，结点将是实际结点或是状态，而边缘将是实际边缘或可能的转换。
+
+#### 伪代码模板
+
+```java
+/**
+ * Return the length of the shortest path between root and target node.
+ */
+int BFS(Node root, Node target) {
+    Queue<Node> queue;  // store all nodes which are waiting to be processed
+    int step = 0;       // number of steps neeeded from root to current node
+    // initialize
+    add root to queue;
+    // BFS
+    while (queue is not empty) {
+        step = step + 1;
+        // iterate the nodes which are already in the queue
+        int size = queue.size();
+        for (int i = 0; i < size; ++i) {
+            Node cur = the first node in queue;
+            return step if cur is target;
+            for (Node next : the neighbors of cur) {
+                add next to queue;
+            }
+            remove the first node from queue;
+        }
+    }
+    return -1;          // there is no path from root to target
+}
+```
+
+1. 如代码所示，在每一轮中，队列中的结点是等待处理的结点。
+2. 在每个更外一层的 while 循环之后，我们距离根结点更远一步。变量 step 指示从根结点到我们正在访问的当前结点的距离。
+
+有时，确保我们永远`不会访问一个结点两次`很重要。否则，我们可能陷入无限循环。如果是这样，我们可以在上面的代码中添加一个哈希集来解决这个问题。这是修改后的伪代码：
+
+```java
+/**
+ * Return the length of the shortest path between root and target node.
+ */
+int BFS(Node root, Node target) {
+    Queue<Node> queue;  // store all nodes which are waiting to be processed
+    Set<Node> used;     // store all the used nodes
+    int step = 0;       // number of steps neeeded from root to current node
+    // initialize
+    add root to queue;
+    add root to used;
+    // BFS
+    while (queue is not empty) {
+        step = step + 1;
+        // iterate the nodes which are already in the queue
+        int size = queue.size();
+        for (int i = 0; i < size; ++i) {
+            Node cur = the first node in queue;
+            return step if cur is target;
+            for (Node next : the neighbors of cur) {
+                if (next is not in used) {
+                    add next to queue;
+                    add next to used;
+                }
+            }
+            remove the first node from queue;
+        }
+    }
+    return -1;          // there is no path from root to target
+}
+```
+
+> 有两种情况你不需要使用哈希集：
+>
+> 1. 你完全确定没有循环，例如，在树遍历中；
+> 2. 你确实希望多次将结点添加到队列中。
+
+### 岛屿数量
+
+#### LeetCode 200 Number of Islands
+
+给你一个由 `1`（陆地）和 `0`（水）组成的的二维网格，请你计算网格中岛屿的数量。
+
+岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。
+
+此外，你可以假设该网格的四条边均被水包围。
+
+```markdown
+**输入**：grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+**输出**：1
+```
+
+```markdown
+**输入**：grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
+**输出**：3
+```
+
+提示：
+
+- `m == grid.length`
+- `n == grid[i].length`
+- `1 <= m, n <= 300`
+- `grid[i][j]` 的值为 `0` 或 `1`
 
 
 
