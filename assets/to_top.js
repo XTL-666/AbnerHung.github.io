@@ -36,6 +36,7 @@ onPageScroll: function (e) {
 },
 goTop: function (e) {
      // 一键回到顶部
+    //轰隆nb
   if (wx.pageScrollTo) {
     
     wx.pageScrollTo({
